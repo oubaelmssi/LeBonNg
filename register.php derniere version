@@ -1,0 +1,54 @@
+<?php
+require 'auth.php';
+
+$registerError = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['register_username'];
+    $password = $_POST['register_password'];
+    $email = $_POST['register_email'];
+
+    if (register($username, $password, $email)) {
+        header('Location: login.php');
+        exit();
+    } else {
+        $registerError = "Erreur lors de l'inscription.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - CorpNg</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="register-body">
+    <div class="register-container">
+        <h1>CorpNg</h1>
+        <h2>Inscription</h2>
+        <p>Créez un compte pour profiter des offres de CorpNg</p>
+        
+        <form method="POST" action="">
+            <?php if ($registerError): ?>
+                <p class="error"><?php echo $registerError; ?></p>
+            <?php endif; ?>
+            <div class="form-group">
+                <label for="register_username">Pseudo</label>
+                <input type="text" id="register_username" name="register_username" required>
+            </div>
+            <div class="form-group">
+                <label for="register_email">Email</label>
+                <input type="email" id="register_email" name="register_email" required>
+            </div>
+            <div class="form-group">
+                <label for="register_password">Mot de passe</label>
+                <input type="password" id="register_password" name="register_password" required>
+            </div>
+            <button type="submit" name="register">S'inscrire</button>
+            <p>Déjà un compte ? <a href="login.php">Connectez-vous</a></p>
+        </form>
+    </div>
+</body>
+</html>
