@@ -1,0 +1,72 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$username = $_SESSION['username'];
+$bankAccount = 1500; // Exemple de solde du compte en banque
+$topBuyers = [
+    "Acheteur 1 - 3000€",
+    "Acheteur 2 - 2500€",
+    "Acheteur 3 - 2000€",
+    "Acheteur 4 - 1500€",
+    "Acheteur 5 - 1000€"
+];
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - NG Corp</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function toggleMenu() {
+            var x = document.getElementById("myNavbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar" id="myNavbar">
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            &#9776;
+        </a>
+        <a href="index.php">Accueil</a>
+        <a href="shop.php">Magasin</a>
+        <a href="#">Mon Pays</a>
+        <a href="#">Mon Panier</a>
+        <a href="#">Mes Commandes</a>
+        <a href="#">Compte</a>
+        <a href="#">Paramètre</a>
+    </div>
+
+    <div class="welcome-container animated">
+        <h1>Bienvenue, <?php echo htmlspecialchars($username); ?>!</h1>
+        <p>Bienvenue sur NG Corp, la plateforme de vente numéro 1 du Sigma</p>
+        <div class="bank-account">
+            Votre solde bancaire : <?php echo $bankAccount; ?> €
+        </div>
+        <div class="top-buyers">
+            <h3>Top Acheteurs</h3>
+            <ul>
+                <?php foreach ($topBuyers as $buyer): ?>
+                    <li><?php echo $buyer; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Rejoignez notre <a href="https://discord.gg/g2vrYrH73d">Discord</a></p>
+        <p>Créé par Ouba_elmssi et Manalilou</p>
+    </div>
+</body>
+</html>
