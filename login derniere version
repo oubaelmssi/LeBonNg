@@ -1,0 +1,49 @@
+<?php
+require 'auth.php';
+
+$loginError = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['login_username'];
+    $password = $_POST['login_password'];
+
+    if (login($username, $password)) {
+        header('Location: profile.php');
+        exit();
+    } else {
+        $loginError = "Nom d'utilisateur ou mot de passe incorrect.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - AmazonGlory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <h1>CorpNg</h1>
+        <h2>Bienvenue ! 👋</h2>
+        <p>Merci de te connecter pour profiter des offres de CorpNg</p>
+        
+        <form method="POST" action="">
+            <?php if ($loginError): ?>
+                <p class="error"><?php echo $loginError; ?></p>
+            <?php endif; ?>
+            <div class="form-group">
+                <label for="login_username">Pseudo</label>
+                <input type="text" id="login_username" name="login_username" required>
+            </div>
+            <div class="form-group">
+                <label for="login_password">Mot de passe</label>
+                <input type="password" id="login_password" name="login_password" required>
+            </div>
+            <button type="submit" name="login">Connexion</button>
+            <p>Tu es nouveau ? <a href="register.php">Crée un compte</a></p>
+        </form>
+    </div>
+</body>
+</html>
